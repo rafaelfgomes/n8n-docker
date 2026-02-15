@@ -1,0 +1,37 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n-app
+    volumes:
+      - ${N8N_DATA_FOLDER:-./data}:/home/node/.n8n
+    environment:
+      - DB_POSTGRESDB_PASSWORD=${DB_PASSWORD}
+      - DB_POSTGRESDB_SCHEMA=public
+      - DB_POSTGRESDB_USER=${DB_USER}
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_DATABASE=${DB_NAME}
+      - DB_TYPE=postgresdb
+    networks:
+      local:
+      external:
+        ipv4_address: ${N8N_IP}
+
+  postgres:
+    image: postgres
+    container_name: n8n-db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - ${N8N_DBDATA_FOLDER:-./dbdata}:/var/lib/postgresql/data
+    networks:
+      local:
+
+networks:
+  local:
+    name: n8n-local-network
+  external:
+    external: true
+    name: ${EXTERNAL_NETWORK_NAME}
