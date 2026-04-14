@@ -13,6 +13,12 @@ services:
       - DB_POSTGRESDB_DATABASE=${DB_NAME}
       - DB_TYPE=postgresdb
       - N8N_SECURE_COOKIE=false
+      - GENERIC_TIMEZONE=${TIMEZONE:-UTC}
+      - TZ=${TIMEZONE:-UTC}
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - WEBHOOK_URL=${EXTERNAL_URL}
+      - N8N_PROXY_HOPS=1
     networks:
       external:
         ipv4_address: ${N8N_IP}
