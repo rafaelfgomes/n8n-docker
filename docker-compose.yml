@@ -2,7 +2,6 @@ services:
   n8n:
     image: n8nio/n8n
     container_name: n8n-app
-    user: ${UID:-1000}:${GID:-1000}
     volumes:
       - ${N8N_DATA_FOLDER:-./data}:/home/node/.n8n
     environment:
