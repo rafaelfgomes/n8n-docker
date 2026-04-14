@@ -10,32 +10,15 @@ services:
       - DB_POSTGRESDB_SCHEMA=public
       - DB_POSTGRESDB_USER=${DB_USER}
       - DB_POSTGRESDB_PORT=5432
-      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_HOST=${DB_HOST}
       - DB_POSTGRESDB_DATABASE=${DB_NAME}
       - DB_TYPE=postgresdb
       - N8N_SECURE_COOKIE=false
-    depends_on:
-      - postgres
     networks:
-      local:
       external:
         ipv4_address: ${N8N_IP}
 
-  postgres:
-    image: postgres:16.12-alpine
-    container_name: n8n-db
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - ${N8N_DBDATA_FOLDER:-./dbdata}:/var/lib/postgresql/data
-    networks:
-      local:
-
 networks:
-  local:
-    name: n8n-local-network
   external:
     external: true
     name: ${EXTERNAL_NETWORK_NAME}
