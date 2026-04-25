@@ -16,7 +16,6 @@ services:
       - GENERIC_TIMEZONE=${TIMEZONE:-Etc/UTC}
       - TZ=${TIMEZONE:-Etc/UTC}
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
-      - N8N_RUNNERS_ENABLED=true
       - WEBHOOK_URL=${EXTERNAL_URL}
       - N8N_PROXY_HOPS=1
     networks:
